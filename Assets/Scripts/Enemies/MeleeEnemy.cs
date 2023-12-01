@@ -45,4 +45,9 @@ public class MeleeEnemy : Enemy
 
     }
 
+    public override void GetDamage(float damage)
+    {
+        health.DeductHealth(damage);
+    }
+
 }
