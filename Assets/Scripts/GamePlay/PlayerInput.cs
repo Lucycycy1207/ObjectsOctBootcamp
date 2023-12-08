@@ -2,10 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Monitor player key and mouse press.
+/// </summary>
 public class PlayerInput : MonoBehaviour
 {
     private Player player;
     private float horizontal, vertical;
+
+    /// <summary>
+    /// This variable represents position of mouse.
+    /// </summary>
     private Vector2 lookTarget;
     
     // Start is called before the first frame update

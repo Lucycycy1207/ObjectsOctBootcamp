@@ -6,7 +6,7 @@ public static class Utilities
     {
         DEVICE_ID = value;
     }
-
+   
     public static int CalculateSomeValue(int valA, int valB)
     {
         return valA + valB;

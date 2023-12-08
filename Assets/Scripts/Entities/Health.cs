@@ -24,6 +24,9 @@ public class Health
         maxHealth = _maxHealth;
     }
 
+    /// <summary>
+    /// Regenerate health when health is less than half.
+    /// </summary>
     public void RegenerateHealth()
     {
         if (currentHealth < maxHealth / 2)

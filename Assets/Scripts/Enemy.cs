@@ -6,6 +6,9 @@ public class Enemy: PlayableObject
     [SerializeField] private float speed;
     private EnemyType enemyType;
 
+    /// <summary>
+    /// The transform of the object that enemy will attack to.
+    /// </summary>
     protected Transform target;
 
     protected virtual void Start()
@@ -60,11 +63,19 @@ public class Enemy: PlayableObject
     {
     }
 
+    /// <summary>
+    /// Currently move to right only.
+    /// </summary>
+    /// <param name="speed">Moving speed</param>
     public override void Move(float speed) // only move to right?
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Rotate Enemy and move to right.
+    /// </summary>
+    /// <param name="direction">Enemy Moving direction.</param>
     public override void Move(Vector2 direction)
     {
         direction.x -= transform.position.x;
@@ -76,7 +87,7 @@ public class Enemy: PlayableObject
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
-    public override void GetDamage(float damage)
-    {
-    }
+    //public override void GetDamage(float damage)
+    //{
+    //}
 }

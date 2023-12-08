@@ -5,6 +5,13 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float damage;
     [SerializeField] private float speed;
 
+    private string targetTag;
+    public void SetBullet(float _damage, string _targetTag, float _speed = 10.0f)
+    {
+        this.damage = _damage;
+        this.speed = _speed;
+        this.targetTag = _targetTag;
+    }
 
     private void Update()
     {
@@ -18,12 +25,18 @@ public class Bullet : MonoBehaviour
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Damage damageble object and destroy bullet
+    /// </summary>
+    /// <param name="damageble">The object damageble component.</param>
     private void Damage(IDamageable damageble)
     {
         
         if (damageble != null)
         {
             damageble.GetDamage(damage);
+
+            GameManager.GetInstance().scoreManager.IncrementScore();
             Debug.Log($"Damaged Something");
             Destroy(gameObject);
         }
@@ -32,6 +45,10 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Bullet collided with " + collision.gameObject.name);
+        //Check the target
+        if (!collision.gameObject.CompareTag(targetTag))
+            return;
+
 
         //Using interface
         IDamageable damageable = collision.GetComponent<IDamageable>();

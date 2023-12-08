@@ -6,10 +6,15 @@ public class Player: PlayableObject
     [SerializeField] private Camera cam;
     [SerializeField] private float speed;
 
+    [SerializeField] private float weaponDamage = 1;
+    [SerializeField] private float bulletSpeed = 10.0f;
+    [SerializeField] private Bullet bulletPrefab;
+
     private Rigidbody2D playerRB;
 
     public override void Shoot()//Vector3 direction, float speed
     {
+        weapon.Shoot(bulletPrefab, this, "Enemy");
         Debug.Log("Player is shooting a bullet");
         //Debug.Log($"Shooting a bullet towards {direction} with a speed of {speed}");
     }
@@ -24,6 +29,9 @@ public class Player: PlayableObject
         health = new Health(100f, 100f, 0.5f);
         playerRB = GetComponent<Rigidbody2D>();
 
+        //Set Player Weapon
+        weapon = new Weapon("Player Weapon", weaponDamage, bulletSpeed);
+
     }
 
     private void Update()
@@ -31,6 +39,12 @@ public class Player: PlayableObject
 
         health.RegenerateHealth();
     }
+
+    /// <summary>
+    /// Control object movement.
+    /// </summary>
+    /// <param name="direction">Direction of the movement by player input</param>
+    /// <param name="target">Current mouse position</param>
     public override void Move(Vector2 direction, Vector2 target)
     {
         //Debug.Log("player direction: " + direction);

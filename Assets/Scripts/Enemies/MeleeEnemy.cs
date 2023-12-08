@@ -47,7 +47,12 @@ public class MeleeEnemy : Enemy
 
     public override void GetDamage(float damage)
     {
-        health.DeductHealth(damage);
+        base.GetDamage(damage);
     }
 
+    public void SetMeleeEnemy(float _attackRange, float _attackTime)
+    {
+        this.attackRange = _attackRange;
+        this.attackTime = _attackTime;   
+    }
 }
