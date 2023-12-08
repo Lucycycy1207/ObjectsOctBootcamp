@@ -13,7 +13,7 @@ public class JSONText : MonoBehaviour
         sample.score = 20;
 
         string data = JsonUtility.ToJson(sample);
-        Debug.Log(data);
+        Debug.Log("ToJson: "+ data);
 
         // Deserializing JSON data
         string json = "{\n\t\"name\": \"Rico\", \n\t\"score\":  20\n}";
@@ -21,7 +21,7 @@ public class JSONText : MonoBehaviour
 
         SampleData sample2 = JsonUtility.FromJson<SampleData>(json);
 
-        Debug.Log("The sample data is " + sample2.name + "and " + sample2.score);
+        Debug.Log("The sample data is " + sample2.name + " and " + sample2.score);
     }
 
     // Update is called once per frame
