@@ -10,12 +10,23 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text healthTxt;
 
 
-    [SerializeField] private Player player;
  
 
     public void UpdateScore()
     {
         scoreTxt.SetText("Score: " + GameManager.GetInstance().scoreManager.GetScore().ToString("00"));
         highScoreTxt.SetText("HighScore: " + GameManager.GetInstance().scoreManager.GetHighScore().ToString("00"));
+        
     }
+
+    public void UpdateHealth()
+    {
+        float tempHealth = GameManager.GetInstance().GetPlayerHealth();
+        Debug.Log("Curr health: " + tempHealth);
+        healthTxt.SetText("health: " + tempHealth.ToString("00"));
+        
+
+    }
+
+
 }

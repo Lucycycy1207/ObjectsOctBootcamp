@@ -20,9 +20,20 @@ public class GameManager : MonoBehaviour
     public UIManager UIManager;
 
     private GameObject tempEnemy;
+    
     private bool isEnemySpawning;
 
     private Weapon meleeWeapon = new Weapon("Melee", 1, 0);
+
+    [SerializeField]
+    private Player player;
+
+    
+    public float GetPlayerHealth()
+    {
+        return player.GetHealth();
+    }
+
     public static GameManager GetInstance()
     {
         return instance;

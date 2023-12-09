@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player: PlayableObject
 {
+
     private string nickName;
     [SerializeField] private Camera cam;
     [SerializeField] private float speed;
@@ -9,8 +11,16 @@ public class Player: PlayableObject
     [SerializeField] private float weaponDamage = 1;
     [SerializeField] private float bulletSpeed = 10.0f;
     [SerializeField] private Bullet bulletPrefab;
+    private Health playerHealth = new Health(100f, 100f, 0.5f);
+
+    [SerializeField] private UIManager uiManager;
+
 
     private Rigidbody2D playerRB;
+    public float GetHealth()
+    {
+        return playerHealth.GetHealth();
+    }
 
     public override void Shoot()//Vector3 direction, float speed
     {
@@ -22,11 +32,14 @@ public class Player: PlayableObject
     public override void Die()
     {
         Debug.Log("Player Died");
+        
+        Destroy(gameObject);
     }
 
     private void Start()
     {
-        health = new Health(100f, 100f, 0.5f);
+        uiManager.UpdateHealth();
+        //health = new Health(100f, 100f, 0.5f);
         playerRB = GetComponent<Rigidbody2D>();
 
         //Set Player Weapon
@@ -36,8 +49,9 @@ public class Player: PlayableObject
 
     private void Update()
     {
-
-        health.RegenerateHealth();
+        
+        playerHealth.RegenerateHealth();
+        uiManager.UpdateHealth();
     }
 
     /// <summary>
@@ -68,7 +82,14 @@ public class Player: PlayableObject
 
     public override void GetDamage(float damage)
     {
-        Debug.Log("Player Damaged!");
+        Debug.Log("Player Damaged: " + damage);
+
+        
+        playerHealth.DeductHealth(damage);
+        if (playerHealth.GetHealth() <= 0)
+        {
+            Die();
+        }
     }
 
 

@@ -14,9 +14,9 @@ public class Health
 
     public Health(float _currentHealth, float _maxHealth, float _healthRegenRate)
     {
-        currentHealth = _currentHealth;
-        maxHealth = _maxHealth;
-        healthRegenRate = _healthRegenRate;
+        this.currentHealth = _currentHealth;
+        this.maxHealth = _maxHealth;
+        this.healthRegenRate = _healthRegenRate;
     }
 
     public Health(float _maxHealth)
@@ -24,6 +24,10 @@ public class Health
         maxHealth = _maxHealth;
     }
 
+    public float GetHealth()
+    {
+        return this.currentHealth;
+    }
     /// <summary>
     /// Regenerate health when health is less than half.
     /// </summary>
@@ -37,18 +41,14 @@ public class Health
 
     public void AddHealth(float valueToAdd)
     {
-        currentHealth = Mathf.Max(maxHealth, currentHealth+valueToAdd);
+        currentHealth = Mathf.Min(maxHealth, currentHealth+valueToAdd);
     }
 
     public void DeductHealth(float valueToDeduct)
     {
-        currentHealth = Mathf.Min(0, currentHealth-valueToDeduct);
+        currentHealth = Mathf.Max(0, currentHealth-valueToDeduct);
     }
 
-    public float GetHealth()
-    {
-        return currentHealth;
-    }
 
     public void SetHealth(float value)
     {
@@ -60,4 +60,6 @@ public class Health
         currentHealth = value;
         
     }
+
+
 }
