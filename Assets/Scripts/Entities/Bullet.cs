@@ -44,12 +44,12 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Bullet collided with " + collision.gameObject.name);
+        
         //Check the target
         if (!collision.gameObject.CompareTag(targetTag))
             return;
 
-
+        Debug.Log("Bullet collided with " + collision.gameObject.name);
         //Using interface
         IDamageable damageable = collision.GetComponent<IDamageable>();
         Damage(damageable);

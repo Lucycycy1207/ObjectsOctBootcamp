@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MeleeEnemy : Enemy
 {
-    [SerializeField] private float attackRange;
+    private float attackRange;
     [SerializeField] private float attackTime = 0f;
 
     private float timer = 0;

@@ -5,28 +5,30 @@ using UnityEngine;
 
 public class MachineGun : Enemy
 {
-    [SerializeField] private float attackRange;
-    [SerializeField] private float shootingRate = 0.02f;
+    private float attackRange;
+    private float shootingRate;
 
-    [SerializeField] private float weaponDamage = 1;
-    [SerializeField] private float bulletSpeed = 10.0f;
     [SerializeField] private Bullet bulletPrefab;
     //[SerializeField] public float shootingTime;
     //[SerializeField]  public float shootingCoolDown;
 
 
     private float timer = 0;
+    private bool InScene = false;
+    private Camera mainCamera;
 
     protected override void Start()
     {
+
+        mainCamera = Camera.main;
         base.Start();
+        
         health = new Health(1, 1, 0);
-        weapon = new Weapon("MachineGun Weapon", weaponDamage, bulletSpeed);
     }
 
     protected override void Update()
     {
-        
+
 
         if (target == null)
         {
@@ -34,9 +36,22 @@ public class MachineGun : Enemy
         }
         Move(target.position);
 
-        if (Vector2.Distance(transform.position, target.position) < attackRange)
+
+        Vector3 screenPoint = mainCamera.WorldToViewportPoint(this.transform.position);
+
+        if (screenPoint.x >= 0 && screenPoint.x <= 1 &&
+            screenPoint.y >= 0 && screenPoint.y <= 1 &&
+            screenPoint.z > 0)
         {
-            Attack(shootingRate);
+            // The object is within the camera's view
+            //Debug.Log(screenPoint.x + "," + screenPoint.y);
+            InScene = true;
+
+
+            if (Vector2.Distance(transform.position, target.position) < attackRange)
+            {
+                Attack(shootingRate);
+            }
 
         }
     }
@@ -49,7 +64,7 @@ public class MachineGun : Enemy
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        if (Vector2.Distance(transform.position, target.position) > attackRange)
+        if (Vector2.Distance(transform.position, target.position) > attackRange || !InScene)
         {
             transform.Translate(Vector2.right * 1 * Time.deltaTime);
         }

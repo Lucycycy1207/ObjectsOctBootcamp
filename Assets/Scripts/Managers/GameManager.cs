@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Entities")]
     [SerializeField] private Transform[] spawnPositions;
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject[] enemyPrefab;
 
     [Header("Game Variables")]
     [SerializeField] private float enemySpawnRate;
@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     private bool isEnemySpawning;
 
     private Weapon meleeWeapon = new Weapon("Melee", 1, 0);
+    private Weapon ShooterWeapon = new Weapon("Shooter", 40, 10);
+    private Weapon MachineGunWeapon = new Weapon("MachineGun", 2, 3);
 
     [SerializeField]
     private Player player;
@@ -70,14 +72,33 @@ public class GameManager : MonoBehaviour
 
     private void CreateEnemy()
     {
-        tempEnemy = Instantiate(enemyPrefab);
+        int tempEnemyType = Random.Range(0, enemyPrefab.Length);
+        tempEnemy = Instantiate(enemyPrefab[tempEnemyType]);
         tempEnemy.transform.position = spawnPositions[Random.Range(0, spawnPositions.Length)].position;
-        tempEnemy.GetComponent<Enemy>().weapon = meleeWeapon;
+        Debug.Log("tempEnemyType: " + tempEnemyType);
+
+        //
 
         //set enemy to meleeEnemy
-        tempEnemy.GetComponent<MeleeEnemy>().SetMeleeEnemy(2, 0.2f);
-       
-
+        if (tempEnemyType == 0)
+        {
+            tempEnemy.GetComponent<MeleeEnemy>().SetMeleeEnemy(2, 0.2f);
+            tempEnemy.GetComponent<MeleeEnemy>().weapon = meleeWeapon;
+        }
+        else if (tempEnemyType == 1)
+        {
+            tempEnemy.GetComponent<Exploder>().SetExploder(1f, 40f);
+        }
+        else if (tempEnemyType == 2)
+        {
+            tempEnemy.GetComponent<Shooter>().SetShooter(10f, 1f);
+            tempEnemy.GetComponent<Shooter>().weapon = ShooterWeapon;
+        }
+        else if (tempEnemyType == 3)
+        {
+            tempEnemy.GetComponent<MachineGun>().SetMachineGun(6f, 0.5f);
+            tempEnemy.GetComponent<MachineGun>().weapon = MachineGunWeapon;
+        }
     }
 
     /// <summary>
@@ -96,7 +117,8 @@ public class GameManager : MonoBehaviour
         while (isEnemySpawning)
         {
             yield return new WaitForSeconds(1.0f / enemySpawnRate);
-            CreateEnemy();
+            if (player != null)
+                CreateEnemy();
         }
         
     }

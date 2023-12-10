@@ -22,7 +22,7 @@ public class Weapon
         Bullet tempBullet = GameObject.Instantiate(_bullet, _player.transform.position, _player.transform.rotation);
         tempBullet.SetBullet(damage, _targetTag, bulletSpeed);
 
-        GameObject.Destroy(tempBullet.gameObject, bulletSpeed);//??
+        GameObject.Destroy(tempBullet.gameObject, 5);//destroy after 5s
     }
 
     public float GetDamage()

@@ -5,10 +5,11 @@ using UnityEngine;
 public class Exploder : Enemy
 {
     private float explodeRadius = 1f;
+    private float damage;
     protected override void Start()
     {
         base.Start();
-        health = new Health(1, 1, 0);
+        health = new Health(2, 2, 0);
     }
 
     protected override void Update()
@@ -31,14 +32,18 @@ public class Exploder : Enemy
     {
         Debug.Log($"explode with radius {radius}");
         
-        target.GetComponent<IDamageable>().GetDamage(40f);
+        target.GetComponent<IDamageable>().GetDamage(damage);
         Destroy(gameObject);
     }
     public override void GetDamage(float damage)
     {
         base.GetDamage(damage);
     }
-
+    public void SetExploder(float _explodeRadius, float _damage)
+    {
+        this.explodeRadius = _explodeRadius;
+        this.damage = _damage;
+    }
 
 
 
