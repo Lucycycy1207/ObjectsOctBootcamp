@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class MachineGun : Enemy
@@ -8,68 +7,61 @@ public class MachineGun : Enemy
     private float attackRange;
     private float shootingRate;
 
-    [SerializeField] private Bullet bulletPrefab;
+    private Bullet bulletPrefab;
+
     //[SerializeField] public float shootingTime;
     //[SerializeField]  public float shootingCoolDown;
-
+    private Vector3 screenPoint;
+    Camera mainCamera;
 
     private float timer = 0;
-    private bool InScene = false;
-    private Camera mainCamera;
+
+    //Camera mainCamera;
+    private bool inScene = false;
 
     protected override void Start()
     {
-
+        base.Start();//define target
         mainCamera = Camera.main;
-        base.Start();
-        
         health = new Health(1, 1, 0);
+        SetEnemyType(EnemyType.MachineGun);
+        //mainCamera = Camera.main;
+        
     }
 
     protected override void Update()
     {
 
+        base.Update();//move object
 
-        if (target == null)
-        {
-            return;
-        }
-        Move(target.position);
-
-
-        Vector3 screenPoint = mainCamera.WorldToViewportPoint(this.transform.position);
+        //check if enemy in Scene
+        screenPoint = mainCamera.WorldToViewportPoint(this.transform.position);
 
         if (screenPoint.x >= 0 && screenPoint.x <= 1 &&
             screenPoint.y >= 0 && screenPoint.y <= 1 &&
             screenPoint.z > 0)
         {
             // The object is within the camera's view
-            //Debug.Log(screenPoint.x + "," + screenPoint.y);
-            InScene = true;
-
-
+            inScene = true;
+        }
+        if (inScene == true) {
+            
             if (Vector2.Distance(transform.position, target.position) < attackRange)
             {
                 Attack(shootingRate);
             }
-
         }
     }
 
-    public override void Move(Vector2 direction)
+    public override void Move(Vector2 targetPosition)
     {
-        direction.x -= transform.position.x;
-        direction.y -= transform.position.y;
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
-
-        if (Vector2.Distance(transform.position, target.position) > attackRange || !InScene)
+        base.Move(targetPosition);
+        if (Vector2.Distance(transform.position, target.position) > attackRange || !inScene)
         {
-            transform.Translate(Vector2.right * 1 * Time.deltaTime);
+            transform.Translate(Vector2.right * speed * Time.deltaTime);
         }
-        
     }
+
 
 
     public override void Attack(float interval)
@@ -84,7 +76,6 @@ public class MachineGun : Enemy
         {
             timer = 0;
             Shoot();
-            //target.GetComponent<IDamageable>().GetDamage(2);
         }
 
     }
@@ -93,15 +84,11 @@ public class MachineGun : Enemy
         weapon.Shoot(bulletPrefab, this, "Player");
     }
 
-    public override void GetDamage(float damage)
-    {
-        base.GetDamage(damage);
-    }
-
-    public void SetMachineGun(float _attackRange, float _shootingRate)
+    public void SetMachineGun(float _attackRange, float _shootingRate, Bullet _bulletPrefab)
     {
         this.attackRange = _attackRange;
         this.shootingRate = _shootingRate;
+        this.bulletPrefab = _bulletPrefab;
     }
 
 }

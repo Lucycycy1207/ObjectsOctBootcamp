@@ -6,10 +6,14 @@ public class Exploder : Enemy
 {
     private float explodeRadius = 1f;
     private float damage;
+    
+    
+
     protected override void Start()
     {
         base.Start();
-        health = new Health(2, 2, 0);
+        SetEnemyType(EnemyType.Exploder);
+        health = new Health(1, 1, 0);
     }
 
     protected override void Update()
@@ -19,13 +23,12 @@ public class Exploder : Enemy
         {
             return;
         }
-        //Debug.Log("transform.position:" +transform.position);
-        //Debug.Log("target.position:" + target.position);
-        Debug.Log("explodeRadius:" + explodeRadius);
+        
         if (Vector2.Distance(transform.position, target.position) <= explodeRadius)
         {
             Explode(explodeRadius);
         }
+        
     }
 
     public void Explode(float radius)
@@ -44,6 +47,7 @@ public class Exploder : Enemy
         this.explodeRadius = _explodeRadius;
         this.damage = _damage;
     }
+    
 
 
 

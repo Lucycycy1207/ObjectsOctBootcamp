@@ -14,23 +14,40 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Variables")]
     [SerializeField] private float enemySpawnRate;
+    [SerializeField] private Bullet bulletPrefab;
+
+    [Header("Melee Variables")]
+    [SerializeField] private float MeleeDamage = 2f;
+    [SerializeField] private float MeleeAttackRange = 2f;
+    [SerializeField] private float MeleeAttackTime = 0.2f;
+
+    [Header("Exloder Variables")]
+    [SerializeField] private float ExplodeRange = 1f;
+    [SerializeField] private float ExplodeDamage = 40f;
+
+    [Header("Shooter Variables")]
+    [SerializeField] private float ShootRange = 10f;
+    [SerializeField] private float ShootRate = 2f;
+
+    [Header("MachineGun Variables")]
+    [SerializeField] private float machineGunRange = 6f;
+    [SerializeField] private float machineGunRate = 0.5f;
 
     [Header("Managers")]
     public ScoreManager scoreManager;
     public UIManager UIManager;
 
     private GameObject tempEnemy;
+
     
     private bool isEnemySpawning;
 
-    private Weapon meleeWeapon = new Weapon("Melee", 1, 0);
-    private Weapon ShooterWeapon = new Weapon("Shooter", 40, 10);
-    private Weapon MachineGunWeapon = new Weapon("MachineGun", 2, 3);
+    private Weapon ShooterWeapon = new Weapon("Shooter", 40f, 10f);
+    private Weapon MachineGunWeapon = new Weapon("MachineGun", 2f, 3f);
 
     [SerializeField]
     private Player player;
 
-    
     public float GetPlayerHealth()
     {
         return player.GetHealth();
@@ -75,28 +92,27 @@ public class GameManager : MonoBehaviour
         int tempEnemyType = Random.Range(0, enemyPrefab.Length);
         tempEnemy = Instantiate(enemyPrefab[tempEnemyType]);
         tempEnemy.transform.position = spawnPositions[Random.Range(0, spawnPositions.Length)].position;
-        Debug.Log("tempEnemyType: " + tempEnemyType);
+        //Debug.Log("tempEnemyType: " + tempEnemyType);
 
         //
 
         //set enemy to meleeEnemy
         if (tempEnemyType == 0)
         {
-            tempEnemy.GetComponent<MeleeEnemy>().SetMeleeEnemy(2, 0.2f);
-            tempEnemy.GetComponent<MeleeEnemy>().weapon = meleeWeapon;
+            tempEnemy.GetComponent<MeleeEnemy>().SetMeleeEnemy(MeleeAttackRange, MeleeAttackTime, MeleeDamage);
         }
         else if (tempEnemyType == 1)
         {
-            tempEnemy.GetComponent<Exploder>().SetExploder(1f, 40f);
+            tempEnemy.GetComponent<Exploder>().SetExploder(ExplodeRange, ExplodeDamage);
         }
         else if (tempEnemyType == 2)
         {
-            tempEnemy.GetComponent<Shooter>().SetShooter(10f, 1f);
+            tempEnemy.GetComponent<Shooter>().SetShooter(ShootRange, ShootRate, bulletPrefab);
             tempEnemy.GetComponent<Shooter>().weapon = ShooterWeapon;
         }
         else if (tempEnemyType == 3)
         {
-            tempEnemy.GetComponent<MachineGun>().SetMachineGun(6f, 0.5f);
+            tempEnemy.GetComponent<MachineGun>().SetMachineGun(machineGunRange, machineGunRate, bulletPrefab);
             tempEnemy.GetComponent<MachineGun>().weapon = MachineGunWeapon;
         }
     }

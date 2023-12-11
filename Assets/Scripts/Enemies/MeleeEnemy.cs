@@ -5,7 +5,8 @@ using UnityEngine;
 public class MeleeEnemy : Enemy
 {
     private float attackRange;
-    [SerializeField] private float attackTime = 0f;
+    private float attackTime;
+    private float damage;
 
     private float timer = 0;
 
@@ -13,6 +14,7 @@ public class MeleeEnemy : Enemy
     {
         base.Start();
         health = new Health(1, 1, 0);
+        SetEnemyType(EnemyType.Melee);
     }
 
     protected override void Update()
@@ -40,7 +42,7 @@ public class MeleeEnemy : Enemy
         else
         {
             timer = 0;
-            target.GetComponent<IDamageable>().GetDamage(0);
+            target.GetComponent<IDamageable>().GetDamage(damage);
         }
 
     }
@@ -50,9 +52,10 @@ public class MeleeEnemy : Enemy
         base.GetDamage(damage);
     }
 
-    public void SetMeleeEnemy(float _attackRange, float _attackTime)
+    public void SetMeleeEnemy(float _attackRange, float _attackTime, float _damage)
     {
         this.attackRange = _attackRange;
-        this.attackTime = _attackTime;   
+        this.attackTime = _attackTime;
+        this.damage = _damage;
     }
 }

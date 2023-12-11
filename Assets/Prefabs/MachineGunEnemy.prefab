@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1458405432271684718}
-  - component: {fileID: 8950054371881022724}
   - component: {fileID: 6540766933888072029}
+  - component: {fileID: 8950054371881022724}
   - component: {fileID: 7976904420001201865}
   - component: {fileID: 619441467580251364}
   m_Layer: 0
@@ -35,6 +35,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6540766933888072029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521384534540981137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77d446ec3310d5a488c0a36d244de843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
 --- !u!212 &8950054371881022724
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -76,7 +89,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,20 +100,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6540766933888072029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1521384534540981137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77d446ec3310d5a488c0a36d244de843, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  bulletPrefab: {fileID: 4893869524096153167, guid: f27f47918c1eae141bb2fa5fd4174a6c, type: 3}
 --- !u!50 &7976904420001201865
 Rigidbody2D:
   serializedVersion: 4
@@ -163,7 +162,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.28866667}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5

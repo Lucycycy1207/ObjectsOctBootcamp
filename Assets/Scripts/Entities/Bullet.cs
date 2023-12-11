@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
 
     private void Move()
     {
-        Debug.Log($"Bullet moving to do a damage of {damage}");
+        //Debug.Log($"Bullet moving to do a damage of {damage}");
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
             damageble.GetDamage(damage);
 
             GameManager.GetInstance().scoreManager.IncrementScore();
-            Debug.Log($"Damaged Something");
+            //Debug.Log($"Damaged Something");
             Destroy(gameObject);
         }
     }
@@ -49,7 +49,7 @@ public class Bullet : MonoBehaviour
         if (!collision.gameObject.CompareTag(targetTag))
             return;
 
-        Debug.Log("Bullet collided with " + collision.gameObject.name);
+        //Debug.Log("Bullet collided with " + collision.gameObject.name);
         //Using interface
         IDamageable damageable = collision.GetComponent<IDamageable>();
         Damage(damageable);

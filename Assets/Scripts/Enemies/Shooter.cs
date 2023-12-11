@@ -8,19 +8,20 @@ public class Shooter : Enemy
     private float attackRange;
     private float shootingRate;
 
-    [SerializeField] private Bullet bulletPrefab;
-    //[SerializeField] public float shootingTime;
-    //[SerializeField]  public float shootingCoolDown;
+    private Bullet bulletPrefab;
 
     private GameObject laser;
     private GameObject square;
-    private Camera mainCamera;
     private float timer = 0;
+
     private bool InScene = false;
+    private Camera mainCamera;
+    private Vector3 screenPoint;
 
     protected override void Start()
     {
         mainCamera = Camera.main;
+        SetEnemyType(EnemyType.Shooter);
         base.Start();
         laser = gameObject.transform.GetChild(0).gameObject;
         square = gameObject.transform.GetChild(1).gameObject;   
@@ -31,28 +32,18 @@ public class Shooter : Enemy
 
     protected override void Update()
     {
+        base.Update();//move object
 
-
-        if (target == null)
-        {
-            return;
-        }
-        Move(target.position);
-        
-
-    
-        Vector3 screenPoint = mainCamera.WorldToViewportPoint(this.transform.position);
+        screenPoint = mainCamera.WorldToViewportPoint(this.transform.position);
 
         if (screenPoint.x >= 0 && screenPoint.x <= 1 &&
             screenPoint.y >= 0 && screenPoint.y <= 1 &&
             screenPoint.z > 0)
         {
-            // The object is within the camera's view
-            //Debug.Log(screenPoint.x + "," + screenPoint.y);
             InScene = true;
-
-
-
+        }
+        if (InScene)
+        {
             if (Vector2.Distance(transform.position, target.position) < attackRange
                 && square.GetComponent<Renderer>().isVisible)
             {
@@ -65,15 +56,12 @@ public class Shooter : Enemy
                 laser.SetActive(false);
             }
         }
+        
     }
 
     public override void Move(Vector2 direction)
     {
-        direction.x -= transform.position.x;
-        direction.y -= transform.position.y;
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        base.Move(direction);
 
         if (Vector2.Distance(transform.position, target.position) > attackRange || !InScene)
         {
@@ -95,7 +83,6 @@ public class Shooter : Enemy
         {
             timer = 0;
             Shoot();
-            //target.GetComponent<IDamageable>().GetDamage(2);
         }
 
     }
@@ -113,10 +100,11 @@ public class Shooter : Enemy
         }
     }
 
-    public void SetShooter(float _attackRange, float _shootingRate)
+    public void SetShooter(float _attackRange, float _shootingRate, Bullet _bulletPrefab)
     {
         this.attackRange = _attackRange;
         this.shootingRate = _shootingRate;
+        this.bulletPrefab = _bulletPrefab;
         
     }
 

@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     public void UpdateHealth()
     {
         float tempHealth = GameManager.GetInstance().GetPlayerHealth();
-        Debug.Log("Curr health: " + tempHealth);
+        //Debug.Log("Curr health: " + tempHealth);
         healthTxt.SetText("health: " + tempHealth.ToString("00"));
         
 

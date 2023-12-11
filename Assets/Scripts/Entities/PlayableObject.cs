@@ -23,7 +23,7 @@ public abstract class PlayableObject : MonoBehaviour, IDamageable
     public virtual void GetDamage(float damage)
     {
         health.DeductHealth(damage);
-        Debug.Log("current health: " + health.GetHealth());
+        //Debug.Log("current health: " + health.GetHealth());
         if (health.GetHealth() <= 0)
         {
             Die();

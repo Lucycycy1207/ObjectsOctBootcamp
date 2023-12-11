@@ -25,7 +25,7 @@ public class Player: PlayableObject
     public override void Shoot()//Vector3 direction, float speed
     {
         weapon.Shoot(bulletPrefab, this, "Enemy");
-        Debug.Log("Player is shooting a bullet");
+        //Debug.Log("Player is shooting a bullet");
         //Debug.Log($"Shooting a bullet towards {direction} with a speed of {speed}");
     }
 

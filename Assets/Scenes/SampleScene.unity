@@ -901,7 +901,17 @@ MonoBehaviour:
   - {fileID: 8187479873804721454, guid: 5abf46773a2bf3e4295afce60abe37ea, type: 3}
   - {fileID: 7092661933901269592, guid: b3e43135d64b88942812f87a7613e759, type: 3}
   - {fileID: 1521384534540981137, guid: d65969cd46189fc4abf13e309ee13a4e, type: 3}
-  enemySpawnRate: 2
+  enemySpawnRate: 1.5
+  bulletPrefab: {fileID: 4893869524096153167, guid: f27f47918c1eae141bb2fa5fd4174a6c, type: 3}
+  MeleeDamage: 2
+  MeleeAttackRange: 2
+  MeleeAttackTime: 0.1
+  ExplodeRange: 1
+  ExplodeDamage: 40
+  ShootRange: 10
+  ShootRate: 2
+  machineGunRange: 6
+  machineGunRate: 0.5
   scoreManager: {fileID: 1829691362}
   UIManager: {fileID: 1514046026}
   player: {fileID: 3492048733030579103}
@@ -2717,7 +2727,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletPrefab: {fileID: 4893869524096153167, guid: f27f47918c1eae141bb2fa5fd4174a6c, type: 3}
 --- !u!212 &3438627763512351701
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3146,7 +3155,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletPrefab: {fileID: 4893869524096153167, guid: f27f47918c1eae141bb2fa5fd4174a6c, type: 3}
 --- !u!114 &7015226420061676814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3160,7 +3168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  attackTime: 1
 --- !u!4 &7589981114496058903
 Transform:
   m_ObjectHideFlags: 0
