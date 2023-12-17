@@ -3,17 +3,26 @@ using UnityEngine.Events;
 
 public class Player: PlayableObject
 {
-
+    [Header("Player Entities")]
     private string nickName;
     [SerializeField] private Camera cam;
     [SerializeField] private float speed;
 
+    [Header("Weapon Entities")]
     [SerializeField] private float weaponDamage = 1;
     [SerializeField] private float bulletSpeed = 10.0f;
     [SerializeField] private Bullet bulletPrefab;
-    private Health playerHealth = new Health(100f, 100f, 0.5f);
+    private Health playerHealth;
 
-    [SerializeField] private UIManager uiManager;
+    [Header("Other Scripts")]
+    [SerializeField] private PickupSpawner pickUpSpawner;
+    
+    [Header("PickUps")]
+    [SerializeField] private GameObject[] nukeDisplay;
+    private int nukeNum = 0;
+    private int maxNuke = 3;
+
+    
 
 
     private Rigidbody2D playerRB;
@@ -33,15 +42,16 @@ public class Player: PlayableObject
     {
         Debug.Log("Player Died");
         
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 
     private void Start()
     {
-        uiManager.UpdateHealth();
+        playerHealth = new Health(100f, 100f, 0.5f);
+        GameManager.GetInstance().UIManager.UpdateHealth();
         //health = new Health(100f, 100f, 0.5f);
         playerRB = GetComponent<Rigidbody2D>();
-
+        Debug.Log("Player health value is " + playerHealth.GetHealth());
         //Set Player Weapon
         weapon = new Weapon("Player Weapon", weaponDamage, bulletSpeed);
 
@@ -51,7 +61,7 @@ public class Player: PlayableObject
     {
         
         playerHealth.RegenerateHealth();
-        uiManager.UpdateHealth();
+        GameManager.GetInstance().UIManager.UpdateHealth();
     }
 
     /// <summary>
@@ -92,5 +102,40 @@ public class Player: PlayableObject
         }
     }
 
+    public void AddNuke()
+    {
+        if (nukeNum >= maxNuke)
+        {
+            return;
+        }
+        //Add a Nuke to the player here!
+        Debug.Log("add Nuke to player");
+        nukeDisplay[nukeNum].GetComponent<Renderer>().enabled = true;
+        nukeNum++;
+    }
 
+    /// <summary>
+    /// Terminate All Enemy In Scene.
+    /// </summary>
+    public void UseNuke()
+    {
+        if (nukeNum == 0)
+        {
+            return;
+        }
+        nukeDisplay[nukeNum-1].GetComponent<Renderer>().enabled = false;
+        nukeNum--;
+        //Destroy Bullets, enemies
+        GameManager.GetInstance().DestroyEntities();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Nuke"))
+        {
+            Debug.Log("Collide with Nuke");
+            pickUpSpawner.OnPicked(collision.gameObject);
+        }
+
+    }
 }

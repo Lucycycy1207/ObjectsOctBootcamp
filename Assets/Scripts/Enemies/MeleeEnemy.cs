@@ -43,6 +43,7 @@ public class MeleeEnemy : Enemy
         {
             timer = 0;
             target.GetComponent<IDamageable>().GetDamage(damage);
+            //target.GetComponent<IDamageable>().GetDamage(wepon.GetDamage())
         }
 
     }

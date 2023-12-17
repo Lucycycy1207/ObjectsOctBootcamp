@@ -8,7 +8,6 @@ public class Weapon
 
     private WeaponType weaponType = WeaponType.AssaultRifle;
 
-
     public Weapon(string _weaponName, float _damage, float _bulletSpeed)
     {
         this.weaponName = _weaponName;

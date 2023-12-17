@@ -7,6 +7,8 @@ public class Enemy: PlayableObject
     /// Enemy moving speed;
     /// </summary>
     [SerializeField] protected float speed;
+    
+    
     private EnemyType enemyType;
 
     /// <summary>
@@ -43,7 +45,19 @@ public class Enemy: PlayableObject
     public override void Die()
     {
         Debug.Log("Enemy Died");
+        
+        //generate Nuke
+
+        float randomValue = Random.Range(0f, 1f);
+        GameObject pref = GameManager.GetInstance().GetNukePrefab();
+
+        if (randomValue < GameManager.GetInstance().GetNukeSpawnProb())
+        {
+            Instantiate(pref, transform.position, Quaternion.identity);
+        }
         Destroy(gameObject);
+
+
     }
 
     public override void Attack(float interval)
@@ -95,4 +109,5 @@ public class Enemy: PlayableObject
     {
         base.GetDamage(damage);
     }
+
 }

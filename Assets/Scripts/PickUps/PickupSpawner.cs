@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunPickUp : PickUp
+
+
+public class PickupSpawner : PickUp
 {
+    [SerializeField] private Player player;
+
     public override void OnPicked(GameObject gameObject)
     {
         base.OnPicked(gameObject);
-        
-        //Add a gun to the player here!
+        player.AddNuke();
     }
 }

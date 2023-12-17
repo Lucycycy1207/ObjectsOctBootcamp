@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,10 +13,14 @@ public class GameManager : MonoBehaviour
     [Header("Game Entities")]
     [SerializeField] private Transform[] spawnPositions;
     [SerializeField] private GameObject[] enemyPrefab;
+    [SerializeField] private Transform enemyContainer;
+    [SerializeField] private GameObject nukePrefab;
 
     [Header("Game Variables")]
     [SerializeField] private float enemySpawnRate;
     [SerializeField] private Bullet bulletPrefab;
+    [SerializeField] float nukeSpawnProb = 0.3f;
+
 
     [Header("Melee Variables")]
     [SerializeField] private float MeleeDamage = 2f;
@@ -37,9 +43,8 @@ public class GameManager : MonoBehaviour
     public ScoreManager scoreManager;
     public UIManager UIManager;
 
-    private GameObject tempEnemy;
 
-    
+    private GameObject tempEnemy;
     private bool isEnemySpawning;
 
     private Weapon ShooterWeapon = new Weapon("Shooter", 40f, 10f);
@@ -53,11 +58,23 @@ public class GameManager : MonoBehaviour
         return player.GetHealth();
     }
 
+
+    public GameObject GetNukePrefab()
+    {
+        return nukePrefab;
+    }
+
+    public float GetNukeSpawnProb()
+    {
+        return nukeSpawnProb;
+    }
+
     public static GameManager GetInstance()
     {
         return instance;
     }
-   
+    
+
 
     private void SetSingleton()
     {
@@ -91,6 +108,7 @@ public class GameManager : MonoBehaviour
     {
         int tempEnemyType = Random.Range(0, enemyPrefab.Length);
         tempEnemy = Instantiate(enemyPrefab[tempEnemyType]);
+        tempEnemy.transform.SetParent(enemyContainer);
         tempEnemy.transform.position = spawnPositions[Random.Range(0, spawnPositions.Length)].position;
         //Debug.Log("tempEnemyType: " + tempEnemyType);
 
@@ -115,7 +133,9 @@ public class GameManager : MonoBehaviour
             tempEnemy.GetComponent<MachineGun>().SetMachineGun(machineGunRange, machineGunRate, bulletPrefab);
             tempEnemy.GetComponent<MachineGun>().weapon = MachineGunWeapon;
         }
+        
     }
+
 
     /// <summary>
     /// Press X to spawn new enemy.
@@ -138,4 +158,32 @@ public class GameManager : MonoBehaviour
         }
         
     }
+
+    /// <summary>
+    /// Destroy all entities in the scene. (Enemies, bullets)
+    /// </summary>
+    public void DestroyEntities()
+    {
+
+        var EnemyList = FindObjectsOfType<Enemy>();
+        Debug.Log(EnemyList + " : " + EnemyList.Length);
+ 
+
+        for (int i = 0; i < EnemyList.Length; i++)
+        {
+            EnemyList[i].Die();
+        }
+
+
+        var bulletList = FindObjectsOfType<Bullet>();
+
+        for (int i = 0; i < bulletList.Length; i++)
+        {
+            Destroy(bulletList[i].gameObject);
+        }
+
+
+    }
+
+
 }

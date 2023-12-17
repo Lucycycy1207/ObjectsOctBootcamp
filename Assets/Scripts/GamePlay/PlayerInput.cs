@@ -38,6 +38,10 @@ public class PlayerInput : MonoBehaviour
         {
             player.Shoot();
         }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            player.UseNuke();
+        }
     }
 
     private void FixedUpdate()
