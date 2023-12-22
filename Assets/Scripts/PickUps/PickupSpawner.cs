@@ -11,6 +11,15 @@ public class PickupSpawner : PickUp
     public override void OnPicked(GameObject gameObject)
     {
         base.OnPicked(gameObject);
+    }
+    public void OnPickedNuke(GameObject gameObject)
+    {
+        base.OnPicked(gameObject);
         player.AddNuke();
+    }
+    public void OnPickedGunPower(GameObject gameObject)
+    {
+        base.OnPicked(gameObject);
+        player.AddGunPower();
     }
 }

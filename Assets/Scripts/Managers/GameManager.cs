@@ -156,7 +156,6 @@ public class GameManager : MonoBehaviour
             if (player != null)
                 CreateEnemy();
         }
-        
     }
 
     /// <summary>

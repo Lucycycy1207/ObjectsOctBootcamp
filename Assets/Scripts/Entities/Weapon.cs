@@ -26,6 +26,8 @@ public class Weapon
         GameObject.Destroy(tempBullet.gameObject, 5);//destroy after 5s
     }
 
+
+
     public float GetDamage()
     {
         return damage;

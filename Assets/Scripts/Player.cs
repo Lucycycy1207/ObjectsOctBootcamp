@@ -19,10 +19,17 @@ public class Player: PlayableObject
     
     [Header("PickUps")]
     [SerializeField] private GameObject[] nukeDisplay;
+    [SerializeField] private GameObject GunPowerImg;
     private int nukeNum = 0;
     private int maxNuke = 3;
 
-    
+    private int gunPower = 0;
+
+    private float shootTimer = 0;
+    private float shootinterval;
+    private bool OnShootingPower = false;
+
+
 
 
     private Rigidbody2D playerRB;
@@ -34,9 +41,8 @@ public class Player: PlayableObject
     public override void Shoot()//Vector3 direction, float speed
     {
         weapon.Shoot(bulletPrefab, this, "Enemy");
-        //Debug.Log("Player is shooting a bullet");
-        //Debug.Log($"Shooting a bullet towards {direction} with a speed of {speed}");
     }
+
 
     public override void Die()
     {
@@ -54,14 +60,56 @@ public class Player: PlayableObject
         Debug.Log("Player health value is " + playerHealth.GetHealth());
         //Set Player Weapon
         weapon = new Weapon("Player Weapon", weaponDamage, bulletSpeed);
+        GunPowerImg.SetActive(false);
+        
+    }
+
+    public void SetGunPowerShootingOn()
+    {
+        OnShootingPower = true;
+    }
+    public void SetGunPowerShootingOff()
+    {
+        OnShootingPower = false;
 
     }
 
+    private float shootingRate = 0.1f;
+    private float timer = 0;
     private void Update()
     {
-        
+        if (gunPower == 1)
+        {
+            if (shootTimer <= shootinterval)
+            {
+                timer += Time.deltaTime;
+                shootTimer += Time.deltaTime;
+                //
+                //
+                if (OnShootingPower)
+                {
+                    if (timer > shootingRate)
+                    {
+                        Shoot();
+                        timer = 0;
+                    }
+                        
+                }
+                
+            }
+            else
+            {
+                this.gameObject.GetComponent<PlayerInput>().DeactiveGunPowerMode();
+                gunPower = 0;
+                GunPowerImg.SetActive(false);
+                shootTimer = 0;
+            }
+            
+        }
+
         playerHealth.RegenerateHealth();
         GameManager.GetInstance().UIManager.UpdateHealth();
+
     }
 
     /// <summary>
@@ -129,13 +177,32 @@ public class Player: PlayableObject
         GameManager.GetInstance().DestroyEntities();
     }
 
+    public void AddGunPower()
+    {
+        //Add a GunPower to the player here!
+        Debug.Log("add GunPower to player");
+        gunPower = 1;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Nuke"))
         {
             Debug.Log("Collide with Nuke");
-            pickUpSpawner.OnPicked(collision.gameObject);
+            pickUpSpawner.OnPickedNuke(collision.gameObject);
         }
+        else if (collision.gameObject.CompareTag("GunPower"))
+        {
+            Debug.Log("Collide with GunPower");
+            GunPowerImg.SetActive(true);
+            shootinterval = GunPowerImg.GetComponent<GunPower>().GetUseTime();
+            pickUpSpawner.OnPickedGunPower(collision.gameObject);
+
+            this.GetComponent<PlayerInput>().ActiveGunPowerMode();
+        }
+
+        
+
 
     }
 }
