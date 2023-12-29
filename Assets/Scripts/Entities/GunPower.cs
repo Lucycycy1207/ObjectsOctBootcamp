@@ -13,10 +13,11 @@ public class GunPower : MonoBehaviour
     private bool coolingDown = true;
     [SerializeField] private float useTime = 10f;
 
+    
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("hehehehe");
+        
         this.transform.position = cam.WorldToScreenPoint(playerTransform.position);
         
     }
@@ -34,8 +35,9 @@ public class GunPower : MonoBehaviour
         return useTime;
     }
 
+    public void ResetGunPowerImg()
+    {
+        GunPowerImg.fillAmount = 1.0f;
+    }
 
-
-
-    
 }

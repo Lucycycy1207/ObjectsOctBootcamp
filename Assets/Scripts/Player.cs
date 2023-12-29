@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Player: PlayableObject
 {
@@ -16,14 +17,15 @@ public class Player: PlayableObject
 
     [Header("Other Scripts")]
     [SerializeField] private PickupSpawner pickUpSpawner;
-    
+    [SerializeField] private GunPower gunPower;
+
     [Header("PickUps")]
     [SerializeField] private GameObject[] nukeDisplay;
     [SerializeField] private GameObject GunPowerImg;
     private int nukeNum = 0;
     private int maxNuke = 3;
 
-    private int gunPower = 0;
+    private int gunPowerMode = 0;
 
     private float shootTimer = 0;
     private float shootinterval;
@@ -78,7 +80,7 @@ public class Player: PlayableObject
     private float timer = 0;
     private void Update()
     {
-        if (gunPower == 1)
+        if (gunPowerMode == 1)
         {
             if (shootTimer <= shootinterval)
             {
@@ -100,7 +102,8 @@ public class Player: PlayableObject
             else
             {
                 this.gameObject.GetComponent<PlayerInput>().DeactiveGunPowerMode();
-                gunPower = 0;
+                gunPowerMode = 0;
+                gunPower.ResetGunPowerImg();
                 GunPowerImg.SetActive(false);
                 shootTimer = 0;
             }
@@ -181,7 +184,7 @@ public class Player: PlayableObject
     {
         //Add a GunPower to the player here!
         Debug.Log("add GunPower to player");
-        gunPower = 1;
+        gunPowerMode = 1;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -195,6 +198,8 @@ public class Player: PlayableObject
         {
             Debug.Log("Collide with GunPower");
             GunPowerImg.SetActive(true);
+            gunPower.ResetGunPowerImg();
+            shootTimer = 0;
             shootinterval = GunPowerImg.GetComponent<GunPower>().GetUseTime();
             pickUpSpawner.OnPickedGunPower(collision.gameObject);
 
