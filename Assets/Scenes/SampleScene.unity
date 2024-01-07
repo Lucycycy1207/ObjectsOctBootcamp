@@ -375,67 +375,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &326284107
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 947412625161055028, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
-      propertyPath: m_Name
-      value: GunPower
-      objectReference: {fileID: 0}
-    - target: {fileID: 947412625161055028, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.843972
-      objectReference: {fileID: 0}
-    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.3373
-      objectReference: {fileID: 0}
-    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
 --- !u!1 &460586621
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,11 +997,9 @@ MonoBehaviour:
   - {fileID: 1521384534540981137, guid: d65969cd46189fc4abf13e309ee13a4e, type: 3}
   enemyContainer: {fileID: 460586622}
   nukePrefab: {fileID: 650512583646624972, guid: ab350c884c848ec47a369bc60f9cf8a9, type: 3}
-  gunPowerPrefab: {fileID: 947412625161055028, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
   enemySpawnRate: 1.5
   bulletPrefab: {fileID: 4893869524096153167, guid: f27f47918c1eae141bb2fa5fd4174a6c, type: 3}
-  nukeSpawnProb: 0.2
-  gunPowerSpawnProb: 0.2
+  nukeSpawnProb: 0.3
   MeleeDamage: 2
   MeleeAttackRange: 2
   MeleeAttackTime: 0.1
@@ -1101,10 +1038,6 @@ PrefabInstance:
     - target: {fileID: 650512583646624972, guid: ab350c884c848ec47a369bc60f9cf8a9, type: 3}
       propertyPath: m_Name
       value: NukeInGame (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 650512583646624972, guid: ab350c884c848ec47a369bc60f9cf8a9, type: 3}
-      propertyPath: m_TagString
-      value: Nuke
       objectReference: {fileID: 0}
     - target: {fileID: 3061178399315672734, guid: ab350c884c848ec47a369bc60f9cf8a9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2932,6 +2865,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 460586622}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1511831346719531680
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 947412625161055028, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
+      propertyPath: m_Name
+      value: GunPower
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.843972
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.3373
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2202854165433760993, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6b2b57f130cd2db4dafd59ed178b60fd, type: 3}
 --- !u!1 &1513775436084909140
 GameObject:
   m_ObjectHideFlags: 0
@@ -3397,7 +3387,6 @@ MonoBehaviour:
   bulletSpeed: 10
   bulletPrefab: {fileID: 4893869524096153167, guid: f27f47918c1eae141bb2fa5fd4174a6c, type: 3}
   pickUpSpawner: {fileID: 1998545271}
-  gunPower: {fileID: 1639232014}
   nukeDisplay:
   - {fileID: 7232234454181992779}
   - {fileID: 7788872361798841336}
@@ -4119,4 +4108,4 @@ SceneRoots:
   - {fileID: 639048229}
   - {fileID: 593555630}
   - {fileID: 1711088811}
-  - {fileID: 326284107}
+  - {fileID: 1511831346719531680}
